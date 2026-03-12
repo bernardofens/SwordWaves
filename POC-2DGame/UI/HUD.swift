@@ -1,3 +1,10 @@
+//
+//  HUD.swift
+//  POC-2DGame
+//
+//  Created by Bernardo Garcia Fensterseifer on 12/03/26.
+//
+
 // MARK: - HUD
 // Landscape layout. All elements anchored to camera space.
 

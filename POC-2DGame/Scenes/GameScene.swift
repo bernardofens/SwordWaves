@@ -1,3 +1,10 @@
+//
+//  GameScene.swift
+//  POC-2DGame
+//
+//  Created by Bernardo Garcia Fensterseifer on 11/03/26.
+//
+
 /// GameScene.swift
 /// The primary gameplay scene responsible for:
 /// - Creating and configuring the world (background, borders)
@@ -14,15 +21,16 @@
 /// Notes:
 /// - Keep scene responsibilities thin: create, connect, and sequence — let Systems do the work
 /// - Avoid storing transient state in the scene when it belongs in Components/Systems
+
 // MARK: - GameScene
 
 import SpriteKit
 import CoreMotion
 
 // ╔══════════════════════════════════════════════════════════╗
-// ║              ASSET NAMES — EDIT HERE                    ║
+// ║              ASSET NAMES — EDIT HERE                     ║
 // ╠══════════════════════════════════════════════════════════╣
-// ║  background_tile  → world background image              ║
+// ║  background_tile  → world background image               ║
 // ╚══════════════════════════════════════════════════════════╝
 private let kBackgroundAsset = "background_tile"  // ← your background image in Assets.xcassets
 

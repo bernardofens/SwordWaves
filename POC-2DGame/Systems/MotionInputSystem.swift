@@ -10,7 +10,6 @@ import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: MotionInputSystem
 // Replaces the joystick. Uses CMMotionManager to read device tilt.
 class MotionInputSystem {
     private let motionManager = CMMotionManager()

@@ -5,8 +5,6 @@
 //  Created by Bernardo Garcia Fensterseifer on 11/03/26.
 //
 
-
-// MARK: - Joystick.swift
 import SpriteKit
 
 class Joystick: SKNode {

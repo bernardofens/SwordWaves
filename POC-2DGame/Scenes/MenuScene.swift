@@ -5,9 +5,9 @@
 //  Created by Bernardo Garcia Fensterseifer on 11/03/26.
 //
 
-
 // MARK: - MenuScene
 // Main menu with Play and Shop buttons.
+
 import SpriteKit
 
 class MenuScene: SKScene {

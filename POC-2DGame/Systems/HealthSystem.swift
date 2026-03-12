@@ -5,12 +5,10 @@
 //  Created by Bernardo Garcia Fensterseifer on 12/03/26.
 //
 
-
 import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: HealthSystem
 class HealthSystem {
     func update(entities: [Entity]) {
         for entity in entities {

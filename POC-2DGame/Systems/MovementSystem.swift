@@ -5,14 +5,10 @@
 //  Created by Bernardo Garcia Fensterseifer on 12/03/26.
 //
 
-
-// MARK: - Systems
-
 import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: MovementSystem
 class MovementSystem {
     func update(entities: [Entity], deltaTime: TimeInterval) {
         for entity in entities {

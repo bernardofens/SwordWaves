@@ -5,12 +5,10 @@
 //  Created by Bernardo Garcia Fensterseifer on 12/03/26.
 //
 
-
 import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: EnemyAISystem
 class EnemyAISystem {
     func update(enemies: [Entity], playerEntity: Entity, deltaTime: TimeInterval) {
         guard let playerTransform = playerEntity.get(TransformComponent.self) else { return }

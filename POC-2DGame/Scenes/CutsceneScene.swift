@@ -1,20 +1,27 @@
+//
+//  CutscenePlayer.swift
+//  POC-2DGame
+//
+//  Created by Bernardo Garcia Fensterseifer on 11/03/26.
+//
+
 // MARK: - CutscenePlayer
 // Exibe a cutscene como um AVPlayerLayer sobreposto ao SKView,
 // SEM trocar de cena. O jogo continua pausado em background e
 // retoma exatamente de onde parou quando o vídeo termina.
 //
 // ╔══════════════════════════════════════════════════════════════════╗
-// ║                  NOME DO VÍDEO — EDITE AQUI                     ║
+// ║                  NOME DO VÍDEO — EDITE AQUI                      ║
 // ╠══════════════════════════════════════════════════════════════════╣
-// ║  Arraste os .mp4 direto no Xcode (não em Assets.xcassets),      ║
+// ║  Arraste os .mp4 direto no Xcode (não em Assets.xcassets),       ║
 // ║  marcando "Copy items if needed" + seu target.                   ║
 // ║                                                                  ║
 // ║  Nomeie os arquivos como:                                        ║
-// ║    cutscene_wave_1.mp4   → exibida após a onda 1                ║
-// ║    cutscene_wave_2.mp4   → exibida após a onda 2                ║
-// ║    cutscene_wave_N.mp4   → e assim por diante...                ║
+// ║    cutscene_wave_1.mp4   → exibida após a onda 1                 ║
+// ║    cutscene_wave_2.mp4   → exibida após a onda 2                 ║
+// ║    cutscene_wave_N.mp4   → e assim por diante...                 ║
 // ║                                                                  ║
-// ║  Se o arquivo não existir, a cutscene é pulada automaticamente. ║
+// ║  Se o arquivo não existir, a cutscene é pulada automaticamente.  ║
 // ╚══════════════════════════════════════════════════════════════════╝
 
 import UIKit

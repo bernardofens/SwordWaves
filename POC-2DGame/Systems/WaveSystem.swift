@@ -5,12 +5,10 @@
 //  Created by Bernardo Garcia Fensterseifer on 12/03/26.
 //
 
-
 import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: WaveSystem
 class WaveSystem {
     private(set) var currentWave: Int = 0
     private(set) var isSpawning: Bool = false

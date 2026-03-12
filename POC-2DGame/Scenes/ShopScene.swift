@@ -5,7 +5,6 @@
 //  Created by Bernardo Garcia Fensterseifer on 11/03/26.
 //
 
-
 // MARK: - ShopScene
 // Placeholder shop. Items will be filled in when ready.
 // Coins are read from UserDefaults and shown to the player.

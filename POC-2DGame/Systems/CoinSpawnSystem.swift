@@ -5,12 +5,10 @@
 //  Created by Bernardo Garcia Fensterseifer on 12/03/26.
 //
 
-
 import SpriteKit
 import CoreMotion
 import Foundation
 
-// MARK: CoinSpawnSystem
 class CoinSpawnSystem {
     private var timer: TimeInterval    = 0
     private let interval: TimeInterval = 8.0
