@@ -334,80 +334,97 @@ class GameScene: SKScene {
         hud.showGameOver()
     }
 
-    // MARK: Touch
+    // MARK: Touch Handling
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let view else { return }
-
+        
         for touch in touches {
             let loc = touch.location(in: cameraNode)
-            let hitNames = cameraNode.nodes(at: loc).compactMap { $0.name }
-
-            // Game Over → restart
-            if hitNames.contains("restartButton") {
-                let saved = playerEntity.get(PlayerComponent.self)?.coins ?? 0
-                UserDefaults.standard.set(saved, forKey: "totalCoins")
-                let s = GameScene(size: size)
-                s.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                s.scaleMode   = scaleMode
-                view.presentScene(s, transition: .fade(withDuration: 0.4))
-                return
-            }
-
-            // Game Over → menu
-            if hitNames.contains("menuFromGameOver") {
-                let saved = playerEntity.get(PlayerComponent.self)?.coins ?? 0
-                UserDefaults.standard.set(saved, forKey: "totalCoins")
-                let s = MenuScene(size: size)
-                s.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                s.scaleMode   = scaleMode
-                view.presentScene(s, transition: .fade(withDuration: 0.4))
-                return
-            }
-
-            // Pause button
-            if hitNames.contains("pauseButton") {
-                togglePause()
-                continue
-            }
-
-            // Pause overlay buttons
-            if hitNames.contains("resumeButton") {
-                togglePause()
-                continue
-            }
-            if hitNames.contains("menuFromPause") {
-                let saved = playerEntity.get(PlayerComponent.self)?.coins ?? 0
-                UserDefaults.standard.set(saved, forKey: "totalCoins")
-                let s = MenuScene(size: size)
-                s.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                s.scaleMode   = scaleMode
-                view.presentScene(s, transition: .fade(withDuration: 0.4))
-                return
-            }
-
-            // Attack button A
-            if hitNames.contains("buttonA") {
-                inputSystem.attackPressed = true
-                continue
-            }
-
-            // Special button B
-            if hitNames.contains("buttonB") {
-                inputSystem.specialPressed = true
-                continue
-            }
+            let hitNodes = cameraNode.nodes(at: loc)
             
-            // Don't pass touches to joystick handling here - it handles its own touches
+            for node in hitNodes {
+                if let nodeName = node.name {
+                    switch nodeName {
+                    case "buttonA":
+                        inputSystem.attackPressed = true
+                        // Visual feedback
+                        if let button = node as? SKSpriteNode {
+                            button.alpha = 0.7
+                        }
+                        
+                    case "buttonB":
+                        inputSystem.specialPressed = true
+                        // Visual feedback
+                        if let button = node as? SKSpriteNode {
+                            button.alpha = 0.7
+                        }
+                        
+                    case "pauseButton":
+                        togglePause()
+                        
+                    case "resumeButton":
+                        togglePause()
+                        
+                    case "restartButton", "menuFromGameOver", "menuFromPause":
+                        handleMenuNavigation(nodeName: nodeName, view: view)
+                        
+                    default:
+                        break
+                    }
+                }
+            }
         }
     }
 
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {}
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {}
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {}
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let loc = touch.location(in: cameraNode)
+            let hitNodes = cameraNode.nodes(at: loc)
+            
+            for node in hitNodes {
+                if node.name == "buttonA" || node.name == "buttonB" {
+                    // Reset button appearance
+                    if let button = node as? SKSpriteNode {
+                        button.alpha = 1.0
+                    }
+                }
+            }
+        }
+    }
+
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Reset button states if touches are cancelled
+        inputSystem.attackPressed = false
+        inputSystem.specialPressed = false
+        
+        // Reset button appearances
+        if let cameraNode = cameraNode {
+            let buttons = cameraNode.children.filter { $0.name == "buttonA" || $0.name == "buttonB" }
+            for button in buttons {
+                (button as? SKSpriteNode)?.alpha = 1.0
+            }
+        }
+    }
+
+    // MARK: Navigation Helpers
+    
+    private func handleMenuNavigation(nodeName: String, view: SKView) {
+        let savedCoins = playerEntity.get(PlayerComponent.self)?.coins ?? 0
+        UserDefaults.standard.set(savedCoins, forKey: "totalCoins")
+        
+        let nextScene: SKScene
+        if nodeName == "menuFromGameOver" || nodeName == "menuFromPause" {
+            nextScene = MenuScene(size: size)
+        } else { // restartButton
+            nextScene = GameScene(size: size)
+        }
+        
+        nextScene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        nextScene.scaleMode = scaleMode
+        view.presentScene(nextScene, transition: .fade(withDuration: 0.4))
+    }
 
     // MARK: Helpers
     private var lastUpdateTime: TimeInterval = 0
-
 }
-
